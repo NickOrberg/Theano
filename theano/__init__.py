@@ -126,6 +126,12 @@ else:
         raise ImportError("The nose module is not installed."
                           " It is needed for Theano tests.")
 
+if config.device.startswith('cpu'):
+    try:
+        import theano.sandbox.mkl
+    except Exception as e:
+        pass
+
 if config.device.startswith('gpu') or config.init_gpu_device.startswith('gpu'):
     import theano.sandbox.cuda
     # We can't test the driver during import of theano.sandbox.cuda as
